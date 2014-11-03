@@ -14,11 +14,17 @@ class Flightgear < Formula
   depends_on "plib"
   depends_on "simgear"
 
+  #This option is being worked on. It will download all the scenery and install it.
+  #option "with-scenery", "Download all of the available scenery from the FlightGear mirrors. This is a huge download."
 
   resource "flightgear-data" do
     url "ftp://ftp.kingmont.com/flightsims/flightgear/Shared/FlightGear-data-3.2.0.tar.bz2"
     sha1 "d7bf617825339884c8ddb1e0ba583c0d53ffe281"
   end
+  
+  #resource "scenery" do
+  #  url "ftp://ftp.de.flightgear.org/pub/fgfs/Scenery-v2.12/*.tgz"
+  #end
 
   def install
 
@@ -26,6 +32,10 @@ class Flightgear < Formula
     system "make", "install"
 
     resource("flightgear-data").stage { (prefix/"fgfs.app"/"Contents"/"Resources"/"data").install Dir["./*"] }
+    
+    #if build.with? "scenery"
+    #  resource("scenery").stage { (
+    #end
 
   end
 
